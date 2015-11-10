@@ -1,0 +1,62 @@
+{
+  "name": "cesnet-jenkins_node",
+  "version": "0.1.0",
+  "author": "cesnet",
+  "summary": "Setup Jenkins node for package builds",
+  "license": "MIT",
+  "source": "https://github.com/valtri/cesnet-jenkins_node",
+  "project_page": "https://github.com/valtri/cesnet-jenkins_node",
+  "issues_url": "https://github.com/valtri/cesnet-jenkins_node/issues",
+  "tags" : [
+    "jenkins",
+    "packaging",
+    "chroot",
+    "mock",
+    "pbuilder"
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=1.0.0 <5.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "5",
+        "6",
+        "7"
+       ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04"
+      ]
+    }
+  ]
+}

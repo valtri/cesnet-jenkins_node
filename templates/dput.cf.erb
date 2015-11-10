@@ -1,0 +1,13 @@
+[local]
+fqdn                    = localhost
+method                  = local
+incoming                = ~/debian/mini-dinstall/incoming
+run_dinstall            = 0
+post_upload_command     = /usr/bin/mini-dinstall -v --debug --batch ~/debian
+
+[local_externals]
+fqdn                    = localhost
+method                  = local
+incoming                = ~/debian-externals/mini-dinstall/incoming
+run_dinstall            = 0
+post_upload_command     = /usr/bin/mini-dinstall -v --debug --batch -c ~/.mini-dinstall-externals.conf ~/debian-externals

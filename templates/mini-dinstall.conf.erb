@@ -1,0 +1,11 @@
+[DEFAULT]
+archive_style=flat
+archivedir=~/debian
+architectures=all, i386, powerpc, sparc, amd64
+mail_on_success=false
+generate_release=true
+keep_old=true
+
+[stable]
+# enable uploading packages with anything in changelogs
+alias=old-stable,stable,testing,unstable,experimental
