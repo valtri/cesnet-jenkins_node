@@ -45,8 +45,9 @@ gnupg directory with key needs to be prepared locally at each Jenkins node or at
         "puppet:///extra_files/cluster-${::cluster}/gnupg",
       ],
       gpg_identity => 'Jenkins Builder <jenkins@emian.zcu.cz>',
+      gpg_keyid => '64fa8786',
       gpg_keys => {
-        gpg-pubkey-64fa8786-516dbb49 => 'http://scientific.zcu.cz/repos/jenkins-builder.asc',
+        '64fa8786' => 'http://scientific.zcu.cz/repos/jenkins-builder.asc',
       },
     }
 
@@ -93,21 +94,31 @@ gnupg identity in the form of "Name &lt;email\_address&gt;". Default: "Jenkins B
 
 Used for rpm.
 
+#####`gpg_keyid`
+
+GPG key ID. Default: undef.
+
 #####`gpg_keys`
 
-Hash of gpg key name and gpg key URL pairs. Default: undef.
-
-Used for import into rpm.
+Hash of GPG key ID and GPG key URL pairs. Default: undef.
 
 Example:
 
     gpg_keys => {
-      gpg-pubkey-64fa8786-516dbb49 => 'http://scientific.zcu.cz/repos/jenkins-builder.asc'
+      '64fa8786' => 'http://scientific.zcu.cz/repos/jenkins-builder.asc'
     }
 
 #####`jenkins_principals`
 
 Array of Kerberos principals to authenticate to Jenkins node into *jenkins* user. Default: undef.
+
+#####`parameters`
+
+Hash of parameters for build scripts. Default: undef.
+
+#####`platforms`
+
+List of supported platforms. Default: (autodetect).
 
 <a name="development"></a>
 ##Development

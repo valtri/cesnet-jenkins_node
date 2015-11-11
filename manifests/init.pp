@@ -3,8 +3,11 @@ class jenkins_node (
   $homedir = $::jenkins_node::params::homedir,
   $gpg_dir = undef,
   $gpg_identity = "Jenkins Builder <jenkins@${::fqdn}>",
+  $gpg_keyid = undef,
   $gpg_keys = undef,
   $jenkins_principals = undef,
+  $parameters = undef,
+  $platforms = $::jenkins_node::params::platforms,
   $ssh_keys = undef,
 ) inherits ::jenkins_node::params {
   include ::stdlib
@@ -59,7 +62,8 @@ class jenkins_node (
 
   User['jenkins']
   ->
-  exec{ 'git clone https://github.com/valtri/jenkins-scripts scripts':
+  exec{ 'download-jenkins-scripts':
+    command => 'git clone https://github.com/valtri/jenkins-scripts scripts',
     creates => "${homedir}/scripts",
     cwd     => $homedir,
     path    => '/sbin:/usr/sbin:/bin:/usr/bin',
@@ -157,8 +161,8 @@ class jenkins_node (
       }
 
       if $::jenkins_node::gpg_keys {
-        $gpg_names = keys($::jenkins_node::gpg_keys)
-        jenkins_node::gpgkey_rpm{ $gpg_names :
+        $gpg_keyids = keys($::jenkins_node::gpg_keys)
+        jenkins_node::gpgkey_rpm{$gpg_keyids:
           gpg_keys => $::jenkins_node::gpg_keys,
         }
       }
@@ -166,4 +170,26 @@ class jenkins_node (
 
     default: {}
   }
+
+  if $::jenkins_node::gpg_keys and $::jenkins_node::gpg_keyid {
+    $gpg_key_url = $::jenkins_node::gpg_keys[$::jenkins_node::gpg_keyid]
+  } else {
+    $gpg_key_url = undef
+  }
+  $dyn_parameters = {
+    'GPG_KEY_URL' => $gpg_key_url,
+    'KEY_ID'      => $gpg_keyid,
+    'PLATFORMS'   => join($platforms, ' '),
+  }
+  $_parameters = merge($dyn_parameters, $parameters)
+
+  $config = "${jenkins_node::homedir}/scripts/config.sh"
+  Exec['download-jenkins-scripts']
+  ->
+  augeas{$config:
+    lens    => 'Shellvars.lns',
+    incl    => $config,
+    changes => template('jenkins_node/config.sh.augeas.erb'),
+  }
+  #notice(template('jenkins_node/config.sh.augeas.erb'))
 }
