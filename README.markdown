@@ -45,14 +45,31 @@ gnupg directory with key needs to be prepared locally at each Jenkins node or at
         "puppet:///extra_files/cluster-${::cluster}/gnupg",
       ],
       gpg_identity => 'Jenkins Builder <jenkins@emian.zcu.cz>',
-      gpg_key_name => 'gpg-pubkey-64fa8786-516dbb49',
-      gpg_key_url  => 'http://scientific.zcu.cz/repos/jenkins-builder.asc',
+      gpg_keys => {
+        gpg-pubkey-64fa8786-516dbb49 => 'http://scientific.zcu.cz/repos/jenkins-builder.asc',
+      },
+    }
+
+### SSH keys
+
+They must be specified separately. For example:
+
+    ssh_authorized_key{'root@myriads.zcu.cz':
+      user => 'jenkins',
+      type => 'ssh-dss',
+      key => 'AAAA...',
     }
 
 <a name="reference"></a>
 ## Reference
 
+### Classes
+
 * [**`jenkins_node`**](#class-jenkins_node): Jenkins Node
+
+### Resources
+
+* `jenkins_node::gpgkey_rpm` (internal): Import GPG key into rpm
 
 <a name="class-jenkins_node"></a>
 ###`jenkins_node` class
@@ -70,12 +87,27 @@ GnuPG config directory with key pair. Default: undef.
 
 Note, it is passed directly to source of *file* type.
 
-#####`gpg_key_name`
-#####`gpg_key_url`
+#####`gpg_identity`
+
+gnupg identity in the form of "Name &lt;email\_address&gt;". Default: "Jenkins Builder &lt;jenkins@${::fqdn}&gt;".
+
+Used for rpm.
+
+#####`gpg_keys`
+
+Hash of gpg key name and gpg key URL pairs. Default: undef.
+
+Used for import into rpm.
+
+Example:
+
+    gpg_keys => {
+      gpg-pubkey-64fa8786-516dbb49 => 'http://scientific.zcu.cz/repos/jenkins-builder.asc'
+    }
 
 #####`jenkins_principals`
 
-Array of Kerberos prencipal to authenticate to Jenkins node into *jenkins* user. Default: undef.
+Array of Kerberos principals to authenticate to Jenkins node into *jenkins* user. Default: undef.
 
 <a name="development"></a>
 ##Development

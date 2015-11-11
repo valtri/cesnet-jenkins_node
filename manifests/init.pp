@@ -3,9 +3,9 @@ class jenkins_node (
   $homedir = $::jenkins_node::params::homedir,
   $gpg_dir = undef,
   $gpg_identity = "Jenkins Builder <jenkins@${::fqdn}>",
-  $gpg_key_name = undef,
-  $gpg_key_url = undef,
+  $gpg_keys = undef,
   $jenkins_principals = undef,
+  $ssh_keys = undef,
 ) inherits ::jenkins_node::params {
   include ::stdlib
 
@@ -45,6 +45,7 @@ class jenkins_node (
   file{'/etc/sudoers.d/jenkins':
     owner  => 'root',
     group  => 'root',
+    mode   => '0440',
     source => 'puppet:///modules/jenkins_node/sudo-jenkins',
   }
 
@@ -147,11 +148,11 @@ class jenkins_node (
         content => "%_gpg_name ${gpg_identity}",
       }
 
-      #TODO: vic klicu
-      exec{'jenkins-gpg-rpm':
-        command => "rpm --import ${gpg_key_url}",
-        path    => '/sbin:/usr/sbin:/bin:/usr/bin',
-        unless  => "rpm -q ${gpg_key_name}",
+      if $::jenkins_node::gpg_keys {
+        $gpg_names = keys($::jenkins_node::gpg_keys)
+        jenkins_node::gpgkey_rpm{ $gpg_names :
+          gpg_keys => $::jenkins_node::gpg_keys,
+        }
       }
     }
 
