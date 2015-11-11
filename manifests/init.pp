@@ -16,6 +16,11 @@ class jenkins_node (
     groups => $::jenkins_node::groups,
     home   => $::jenkins_node::homedir,
   }
+  ->
+  file{$::jenkins_node::homedir:
+    owner => 'jenkins',
+    group => 'jenkins',
+  }
 
   if $jenkins_principals {
     validate_array($jenkins_principals)
@@ -34,7 +39,10 @@ class jenkins_node (
     file{"${homedir}/.gnupg":
       owner        => 'jenkins',
       group        => 'jenkins',
-      ignore       => 'random_seed',
+      ignore       => [
+        'random_seed',
+        '*.gpg-agent',
+      ],
       purge        => false,
       recurse      => 'remote',
       recurselimit => 100,
