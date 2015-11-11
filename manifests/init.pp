@@ -135,7 +135,6 @@ class jenkins_node (
     'RedHat': {
       Package['mock'] -> User['jenkins']
 
-      # TODO: vypnuty selinux?
       User['jenkins']
       ->
       exec{"semanage ${homedir}":
