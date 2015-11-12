@@ -206,7 +206,7 @@ class jenkins_node (
       command => "${homedir}/scripts/refresh-chroot --initial 2>&1 > ${logfile} && touch ${homedir}/.puppet-chroots",
       creates => "${homedir}/.puppet-chroots",
       user    => 'jenkins',
-      path    => '/sbin:/usr/sbin:/bin:/usr/bin',
+      path    => '/bin:/usr/bin:/sbin:/usr/sbin',
       require => Augeas[$config],
       timeout => 1200,
     }
