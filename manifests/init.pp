@@ -63,7 +63,7 @@ class jenkins_node (
   User['jenkins']
   ->
   exec{ 'download-jenkins-scripts':
-    command => 'git clone https://github.com/valtri/jenkins-scripts scripts',
+    command => 'git clone https://github.com/indigo-dc/jenkins-scripts scripts',
     creates => "${homedir}/scripts",
     cwd     => $homedir,
     path    => '/sbin:/usr/sbin:/bin:/usr/bin',
