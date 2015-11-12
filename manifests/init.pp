@@ -75,11 +75,13 @@ class jenkins_node (
         owner   => 'jenkins',
         group   => 'jenkins',
         content => template('jenkins_node/pbuilderrc.erb'),
+        # .pbuilderrc is modified by the build scripts
+        replace => false,
       }
       ->
       file{'/root/.pbuilderrc':
         ensure => 'link',
-        source => "${homedir}/.pbuilderrc",
+        target => "${homedir}/.pbuilderrc",
       }
 
       file{"${homedir}/.mini-dinstall.conf":

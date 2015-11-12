@@ -1,5 +1,5 @@
 <% if @operatingsystem.downcase == 'ubuntu' -%>
 COMPONENTS='main universe'
 <% end -%>
-OTHERMIRROR='deb http://scientific.zcu.cz/repos/EGI-external/<%= @operatingsystem.downcase -%>/ <%= @lsbdistcodename -%>/|deb file://<%= @homedir -%>/debian-externals/ stable/|deb file://<%= @homedir -%>/debian/ stable/'
+OTHERMIRROR='deb file://<%= @homedir -%>/debian-externals/ stable/|deb file://<%= @homedir -%>/debian/ stable/'
 BINDMOUNTS="<%= @homedir -%>/debian-externals <%= @homedir -%>/debian"
