@@ -29,9 +29,10 @@ Jenkins node setup for building packages in chroot environment using mock or pbu
  * user rpm macros
  * credentials (gpg, ssh)
  * build scripts checkout
+ * helper *~jenkins/.puppet-\** files
 * SELinux setup
 * cron:
- * TODO: refresh images
+ * refresh chroot images
 
 ### Setup Requirements
 
@@ -53,7 +54,7 @@ gnupg directory with key needs to be prepared locally at each Jenkins node or at
 
 ### SSH keys
 
-They must be specified separately. For example:
+SSH keys must be specified separately. For example:
 
     ssh_authorized_key{'root@myriads.zcu.cz':
       user => 'jenkins',
@@ -119,6 +120,18 @@ Hash of parameters for build scripts. Default: undef.
 #####`platforms`
 
 List of supported platforms. Default: (autodetect).
+
+#####`refresh_enable`
+
+Enable creating and refreshing chroot images. Default: true.
+
+#####`refresh_hour`
+#####`refresh_minute`
+#####`refresh_month`
+#####`refresh_monthday`
+#####`refresh_weekday`
+
+Parameters for the refresh image cron job. Default: 0, 0, *, *, 0.
 
 <a name="development"></a>
 ##Development

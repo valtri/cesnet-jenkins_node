@@ -8,6 +8,12 @@ class jenkins_node (
   $jenkins_principals = undef,
   $parameters = undef,
   $platforms = $::jenkins_node::params::platforms,
+  $refresh_enable = true,
+  $refresh_hour = '0',
+  $refresh_minute = '0',
+  $refresh_month = '*',
+  $refresh_monthday = '*',
+  $refresh_weekday = '0',
   $ssh_keys = undef,
 ) inherits ::jenkins_node::params {
   include ::stdlib
@@ -193,4 +199,26 @@ class jenkins_node (
     changes => template('jenkins_node/config.sh.augeas.erb'),
   }
   #notice(template('jenkins_node/config.sh.augeas.erb'))
+
+  if $::jenkins_node::refresh_enable and $::jenkins_node::refresh_enable == true {
+    $logfile = '/tmp/jenkins-node.log'
+    exec{'refresh-chroot':
+      command => "${homedir}/scripts/refresh-chroot --initial 2>&1 > ${logfile} && touch ${homedir}/.puppet-chroots",
+      creates => "${homedir}/.puppet-chroots",
+      user    => 'jenkins',
+      path    => '/sbin:/usr/sbin:/bin:/usr/bin',
+      require => Augeas[$config],
+      timeout => 1200,
+    }
+
+    cron{ 'jenkins_node':
+      command  => "${homedir}/scripts/refresh-chroot >${logfile} 2>&1 || cat ${logfile}",
+      user     => 'jenkins',
+      hour     => $refresh_hour,
+      minute   => $refresh_minute,
+      month    => $refresh_month,
+      monthday => $refresh_monthday,
+      weekday  => $refresh_weekday,
+    }
+  }
 }
