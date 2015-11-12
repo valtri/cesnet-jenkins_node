@@ -1,0 +1,10 @@
+name 'cesnet-jenkins_node'
+version '0.1.0'
+source 'https://github.com/valtri/cesnet-jenkins_node'
+author 'CESNET'
+license 'MIT'
+summary 'Setup Jenkins node for package builds'
+description 'Setup Jenkins node for package builds'
+project_page 'https://github.com/valtri/cesnet-jenkins_node'
+
+dependency 'puppetlabs/stdlib', '>= 1.0.0 <5.0.0'

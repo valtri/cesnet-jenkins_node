@@ -1,7 +1,7 @@
 {
   "name": "cesnet-jenkins_node",
   "version": "0.1.0",
-  "author": "cesnet",
+  "author": "CESNET",
   "summary": "Setup Jenkins node for package builds",
   "license": "MIT",
   "source": "https://github.com/valtri/cesnet-jenkins_node",
