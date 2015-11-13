@@ -59,13 +59,6 @@ class jenkins_node (
     }
   }
 
-  file{'/etc/sudoers.d/jenkins':
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0440',
-    source => 'puppet:///modules/jenkins_node/sudo-jenkins',
-  }
-
   User['jenkins']
   ->
   exec{ 'download-jenkins-scripts':
@@ -77,6 +70,13 @@ class jenkins_node (
 
   case $::osfamily {
     'Debian': {
+      file{'/etc/sudoers.d/jenkins':
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0440',
+        source => 'puppet:///modules/jenkins_node/sudo-jenkins',
+      }
+
       file{"${homedir}/.pbuilderrc":
         owner   => 'jenkins',
         group   => 'jenkins',
