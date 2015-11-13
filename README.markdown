@@ -12,7 +12,8 @@
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
     * [Module Parameters (`jenkins_node` class)](#parameters)
-5. [Development - Guide for contributing to the module](#development)
+5. [Limitations - OS compatibility, etc.](#limitations)
+6. [Development - Guide for contributing to the module](#development)
 
 ## Module Description
 
@@ -77,7 +78,7 @@ SSH keys must be specified separately. For example:
 ###`jenkins_node` class
 
 <a name="parameters"></a>
-#### Paramerers
+#### Parameters
 
 #####`homedir`
 
@@ -132,6 +133,32 @@ Enable creating and refreshing chroot images. Default: true.
 #####`refresh_weekday`
 
 Parameters for the refresh image cron job. Default: 0, 0, *, *, 0.
+
+<a name="limitations"></a>
+##Limitations
+
+### RHEL 5
+
+RHEL 5 platform is not supported.
+
+It is possible to build for RHEL 5 though:
+
+* any other RedHat-like platform can be used for the build node (it is used mock tool)
+* there is limit on the GPG key size (see below)
+
+### Build platforms
+
+Some build platforms can be collocated on the single node, but each "OS family" need its own machine.
+
+Build "OS families":
+
+* Debian
+* Ubuntu
+* Fedora/EPEL
+
+Different GPG key:
+
+* separated build machine must be used when different GPG key is needed for some platform
 
 <a name="development"></a>
 ##Development
