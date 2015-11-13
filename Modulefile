@@ -1,5 +1,5 @@
 name 'cesnet-jenkins_node'
-version '0.1.0'
+version '0.2.0'
 source 'https://github.com/valtri/cesnet-jenkins_node'
 author 'CESNET'
 license 'MIT'
