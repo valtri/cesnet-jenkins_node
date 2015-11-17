@@ -2,7 +2,10 @@
 #jenkins ALL=(root) NOPASSWD: SETENV: /usr/sbin/pbuilder *
 
 # build
+#normal
 jenkins ALL=(root) NOPASSWD: SETENV: /usr/sbin/pbuilder --build --buildresult [a-zA-Z0-9_/-]* --debbuildopts [ ]--debbuildopts [ ]--hookdir [a-zA-Z0-9_/-]* --basetgz /var/cache/pbuilder/[a-z0-9_-]*.tgz *
+#"internal" hack
+jenkins ALL=(root) NOPASSWD: SETENV: /usr/sbin/pbuilder --execute --bindmounts [a-zA-Z0-9_/-]* --hookdir [a-zA-Z0-9_/-]* --basetgz /var/cache/pbuilder/[a-z0-9_-]*.tgz *
 
 # image
 jenkins ALL=(root) NOPASSWD: SETENV: /usr/sbin/pbuilder --create --hookdir [a-zA-Z0-9_/-]* --distribution [a-z-]* --basetgz /var/cache/pbuilder/[a-z0-9_-]*.tgz
