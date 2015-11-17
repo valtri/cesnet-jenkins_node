@@ -28,6 +28,7 @@ class jenkins_node::params {
       }
 
       $packages_os = [
+        'dpkg-dev',
         'dput',
         'mini-dinstall',
         'pbuilder',
@@ -42,8 +43,8 @@ class jenkins_node::params {
 
       $packages_os = [
         'createrepo_c',
+        'rpm-build',
         'rpm-sign',
-        'git',
         'mock',
         'policycoreutils-python',
       ]

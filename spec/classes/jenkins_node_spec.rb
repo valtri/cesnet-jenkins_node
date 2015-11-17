@@ -19,6 +19,20 @@ describe 'jenkins_node' do
 
           it { is_expected.to contain_user('jenkins') }
         end
+
+        if os =~ /^(debian|ubuntu).*/ then
+          context "pbuilder installed" do
+            it { is_expected.to contain_package('pbuilder') }
+            it { is_expected.to contain_package('dpkg-dev') }
+            it { is_expected.to contain_package('dput') }
+            it { is_expected.to contain_package('mini-dinstall') }
+          end
+        else
+          context "mock installed" do
+            it { is_expected.to contain_package('mock') }
+            it { is_expected.to contain_package('rpm-build') }
+          end
+        end
       end
     end
   end
