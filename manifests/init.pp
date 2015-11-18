@@ -210,6 +210,10 @@ class jenkins_node (
       require => Augeas[$config],
       timeout => 1200,
     }
+    if $::osfamily == 'Debian' {
+      File['/etc/sudoers.d/jenkins'] -> Exec['refresh-chroot']
+      File['/root/.pbuilderrc'] -> Exec['refresh-chroot']
+    }
 
     cron{ 'jenkins_node':
       command  => "${homedir}/scripts/refresh-chroot >${logfile} 2>&1 || cat ${logfile}",
