@@ -21,9 +21,10 @@ class jenkins_node (
   ensure_packages($::jenkins_node::packages)
 
   user{'jenkins':
-    ensure => 'present',
-    groups => $::jenkins_node::groups,
-    home   => $::jenkins_node::homedir,
+    ensure     => 'present',
+    groups     => $::jenkins_node::groups,
+    home       => $::jenkins_node::homedir,
+    managehome => true,
   }
   ->
   file{$::jenkins_node::homedir:
