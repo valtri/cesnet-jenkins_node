@@ -1,6 +1,8 @@
 # == Class: jenkins_node::params
 
 class jenkins_node::params {
+  include ::stdlib
+
   $groups = $::osfamily ? {
     /RedHat/ => ['mock'],
     /Debian/ => [],
@@ -61,7 +63,8 @@ class jenkins_node::params {
 
   $packages = concat($packages_common, $packages_os, [$package_java], $package_python)
 
-  $platforms = "${::osfamily}-${::operatingsystem}-${::lsbmajdistrelease}" ? {
+  $osver = pick(getvar('::lsbmajdistrelease'), getvar('::operatingsystemrelease'))
+  $platforms = "${::osfamily}-${::operatingsystem}-${osver}" ? {
     /RedHat-.*-5/      => ['epel-5-i386', 'epel-5-x86_64'],
     /RedHat/           => ['epel-5-i386', 'epel-5-x86_64', 'epel-6-i386', 'epel-6-x86_64', 'epel-7-x86_64', 'fedora-rawhide-i386', 'fedora-rawhide-x86_64'],
     /Debian-Debian-7/  => ['debian-7-x86_64'],
