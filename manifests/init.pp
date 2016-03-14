@@ -68,6 +68,15 @@ class jenkins_node (
     cwd     => $homedir,
     path    => '/sbin:/usr/sbin:/bin:/usr/bin',
   }
+  ->
+  # some initial (empty) repositories file
+  file { "${homedir}/scripts/repos.sh":
+    owner   => 'jenkins',
+    group   => 'jenkins',
+    mode    => '0755',
+    replace => false,
+    content => '',
+  }
 
   case $::osfamily {
     'Debian': {
