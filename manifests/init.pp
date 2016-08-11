@@ -211,7 +211,7 @@ class jenkins_node (
   if $::jenkins_node::refresh_enable and $::jenkins_node::refresh_enable == true {
     $logfile = '/tmp/jenkins-node.log'
     exec{'refresh-chroot':
-      command => "${homedir}/scripts/refresh-chroot --initial 2>&1 > ${logfile} && touch ${homedir}/.puppet-chroots",
+      command => "${homedir}/scripts/refresh-chroot --initial > ${logfile} 2>&1 && touch ${homedir}/.puppet-chroots",
       creates => "${homedir}/.puppet-chroots",
       user    => 'jenkins',
       path    => '/bin:/usr/bin:/sbin:/usr/sbin',
