@@ -216,7 +216,7 @@ class jenkins_node (
       user    => 'jenkins',
       path    => '/bin:/usr/bin:/sbin:/usr/sbin',
       require => Augeas[$config],
-      timeout => 1200,
+      timeout => 2400,
     }
     if $::osfamily == 'Debian' {
       File['/etc/sudoers.d/jenkins'] -> Exec['refresh-chroot']
