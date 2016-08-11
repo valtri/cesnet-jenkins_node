@@ -1,6 +1,6 @@
 # Jenkins Node Puppet Module
 
-[![Build Status](https://travis-ci.org/valtri/cesnet-jenkins_node.svg?branch=master)](https://travis-ci.org/valtri/cesnet-jenkins\_node)
+[![Build Status](https://travis-ci.org/valtri/cesnet-jenkins_node.svg?branch=master)](https://travis-ci.org/valtri/cesnet-jenkins\_node) [![Puppet Forge](https://img.shields.io/puppetforge/v/cesnet/jenkins_node.svg)](https://forge.puppetlabs.com/cesnet/jenkins\_node)
 
 #### Table of Contents
 
