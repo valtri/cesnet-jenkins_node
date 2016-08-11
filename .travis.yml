@@ -3,7 +3,6 @@ language: ruby
 bundler_args: --without development system_tests
 before_install: rm Gemfile.lock || true
 rvm:
-  - 1.9.3
   - 2.0.0
   - 2.1.0
 script: bundle exec rake test
@@ -19,8 +18,6 @@ env:
 matrix:
   exclude:
   # Ruby 2.1.0
-  - rvm: 2.1.0
-    env: PUPPET_GEM_VERSION="~> 3.2.0"
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.3.0"
   - rvm: 2.1.0
