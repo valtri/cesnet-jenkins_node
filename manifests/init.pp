@@ -70,12 +70,10 @@ class jenkins_node (
   }
   ->
   # some initial (empty) repositories file
-  file { "${homedir}/scripts/repos.sh":
-    owner   => 'jenkins',
-    group   => 'jenkins',
-    mode    => '0755',
-    replace => false,
-    content => '',
+  exec { 'touch-repo.sh':
+    command => "touch ${homedir}/scripts/repos.sh",
+    creates => "${homedir}/scripts/repos.sh",
+    path    => '/sbin:/usr/sbin:/bin:/usr/bin',
   }
 
   case $::osfamily {
