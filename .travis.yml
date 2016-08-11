@@ -19,6 +19,8 @@ matrix:
   exclude:
   # Ruby 2.1.0
   - rvm: 2.1.0
+    env: PUPPET_GEM_VERSION="~> 3.2.0"
+  - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.3.0"
   - rvm: 2.1.0
     env: PUPPET_GEM_VERSION="~> 3.4.0"
