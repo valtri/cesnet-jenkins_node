@@ -191,12 +191,22 @@ class jenkins_node (
   } else {
     $gpg_key_url = undef
   }
-  $dyn_parameters = {
-    'GPG_KEY_URL' => $gpg_key_url,
-    'KEY_ID'      => $gpg_keyid,
+  $main_parameters = {
     'PLATFORMS'   => join($platforms, ' '),
   }
-  $_parameters = merge($dyn_parameters, $parameters)
+  if $gpg_keyid and $gpg_keyid != '' {
+    $gpg_parameters = {
+      'GPG_KEY_URL' => $gpg_key_url,
+      'KEY_ID'      => $gpg_keyid,
+    }
+  } else {
+    $gpg_parameters = {
+      'GPG_KEY_URL' => "''",
+      'KEY_ID'      => "''",
+      'do_sign'     => '0',
+    }
+  }
+  $_parameters = merge($main_parameters, $gpg_parameters, $parameters)
 
   $config = "${jenkins_node::homedir}/scripts/config.sh"
   Exec['download-jenkins-scripts']
