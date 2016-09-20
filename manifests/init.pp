@@ -201,8 +201,8 @@ class jenkins_node (
     }
   } else {
     $gpg_parameters = {
-      'GPG_KEY_URL' => "''",
-      'KEY_ID'      => "''",
+      'GPG_KEY_URL' => '',
+      'KEY_ID'      => '',
       'do_sign'     => '0',
     }
   }
