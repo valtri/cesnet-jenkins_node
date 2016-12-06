@@ -32,9 +32,11 @@ class jenkins_node::params {
       $packages_os = [
         'dpkg-dev',
         'dput',
+        'maven-debian-helper',
         'mini-dinstall',
         'pbuilder',
         'dh-autoreconf',
+        'gem2deb',
       ]
     }
     'RedHat': {
@@ -59,6 +61,9 @@ class jenkins_node::params {
   $packages_common = [
     'git',
     'unzip',
+    'pbzip2',
+    'pigz',
+    'rubygems',
   ]
 
   $packages = concat($packages_common, $packages_os, [$package_java], $package_python)
