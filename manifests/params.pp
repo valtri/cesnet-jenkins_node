@@ -30,13 +30,14 @@ class jenkins_node::params {
       }
 
       $packages_os = [
+        'cdbs',
         'dpkg-dev',
         'dput',
         'maven-debian-helper',
         'mini-dinstall',
         'pbuilder',
         'dh-autoreconf',
-        'gem2deb',
+        'ruby',
       ]
     }
     'RedHat': {
