@@ -76,7 +76,7 @@ class jenkins_node::params {
     /Debian-Debian-7/  => ['debian-7-x86_64'],
     /Debian-Debian/    => ['debian-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64'],
     /Debian-Ubuntu-12/ => ['ubuntu-12-x86_64'],
-    /Debian-Ubuntu/    => ['ubuntu-12-x86_64', 'ubuntu-14-x86_64'],
+    /Debian-Ubuntu/    => ['ubuntu-12-x86_64', 'ubuntu-14-x86_64', 'ubuntu-16-x86_64'],
     default            => [],
   }
 }
