@@ -14,13 +14,15 @@ class jenkins_node::params {
   case $::osfamily {
     'Debian': {
       $package_java = $::lsbdistcodename ? {
-        'squeeze'        => 'openjdk-6-jre-headless',
-        'wheezy'         => 'openjdk-7-jre-headless',
-        'jessie'         => 'openjdk-7-jre-headless',
-        'stretch'        => 'openjdk-8-jre-headless',
+        /squeeze/         => 'openjdk-6-jre-headless',
+        /wheezy|jessie/   => 'openjdk-7-jre-headless',
+        /stretch/         => 'openjdk-8-jre-headless',
+        /buster|bullseye/ => 'openjdk-11-jre-headless',
 
-        /precise|trusty/ => 'openjdk-7-jre-headless',
-        /utopic|vivid/   => 'openjdk-8-jre-headless',
+        /precise|trusty/  => 'openjdk-7-jre-headless',
+        /utopic|vivid/    => 'openjdk-8-jre-headless',
+        /xenial/          => 'openjdk-9-jre-headless',
+        /bionic/          => 'openjdk-11-jre-headless',
       }
 
       $package_python = $::lsbdistcodename ? {
@@ -74,9 +76,9 @@ class jenkins_node::params {
     /RedHat-.*-5/      => ['epel-5-i386', 'epel-5-x86_64'],
     /RedHat/           => ['epel-5-i386', 'epel-5-x86_64', 'epel-6-i386', 'epel-6-x86_64', 'epel-7-x86_64', 'fedora-rawhide-i386', 'fedora-rawhide-x86_64'],
     /Debian-Debian-7/  => ['debian-7-x86_64'],
-    /Debian-Debian/    => ['debian-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64'],
+    /Debian-Debian/    => ['debian-8-x86_64', 'debian-9-x86_64', 'debian-10-x86_64'],
     /Debian-Ubuntu-12/ => ['ubuntu-12-x86_64'],
-    /Debian-Ubuntu/    => ['ubuntu-12-x86_64', 'ubuntu-14-x86_64', 'ubuntu-16-x86_64'],
+    /Debian-Ubuntu/    => ['ubuntu-12-x86_64', 'ubuntu-14-x86_64', 'ubuntu-16-x86_64', 'ubuntu-18-x86_64'],
     default            => [],
   }
 }
